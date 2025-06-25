@@ -4,10 +4,10 @@ import random
 from dotenv import load_dotenv
 
 from langchain.chat_models import init_chat_model
-from langchain_core.messages import HumanMessage, AIMessage, SystemMessage, BaseMessage
+from langchain_core.messages import HumanMessage,BaseMessage
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langgraph.checkpoint.memory import MemorySaver
-from langgraph.graph import START, StateGraph, MessagesState
+from langgraph.graph import START, StateGraph
 from langgraph.graph.message import add_messages
 from langchain_core.messages import trim_messages
 from typing_extensions import Annotated, TypedDict
