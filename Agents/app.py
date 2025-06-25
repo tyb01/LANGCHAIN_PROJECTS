@@ -20,12 +20,10 @@ wiki_tool = WikipediaQueryRun(api_wrapper=apiwrapper)
 from langchain_community.document_loaders import WebBaseLoader
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-import faiss
 from langchain_community.vectorstores import FAISS
 from langchain_community.docstore.in_memory import InMemoryDocstore
-from uuid import uuid4
 
-loader = WebBaseLoader("https://docs.smith.langchain.com/")
+loader = WebBaseLoader("https://python.langchain.com/docs/introduction/")
 docs = loader.load()
 
 chunks = RecursiveCharacterTextSplitter(
@@ -47,11 +45,11 @@ from langchain.tools.retriever import create_retriever_tool
 
 ret_tool = create_retriever_tool(
     retriever,
-    "langsmith_search",
-    "Search any information about langsmit, for any question about langsmith tool, you should use this tool"
+    "langchain_search",
+    "Search any information about langchain, for any question about langchain tool, you should use this tool"
 )
 
-print(ret_tool.name)
+
 
 # -------------------- Arxiv Tool --------------------
 from langchain_community.utilities import ArxivAPIWrapper
@@ -70,7 +68,6 @@ from langchain.chat_models import init_chat_model
 llm = init_chat_model("llama3-8b-8192", model_provider="groq")
 
 prompt = hub.pull("hwchase17/openai-functions-agent")
-print(prompt.messages)
 
 # -------------------- Agent Setup --------------------
 from langchain.agents import create_openai_tools_agent
@@ -83,6 +80,7 @@ from langchain.agents import AgentExecutor
 agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
 
 qs = input('Enter Your Query: ')
-response = agent_executor.invoke({"input": {qs}})
+response = agent_executor.invoke({"input": qs})
 
+print("|____________________________________________|")
 print(response['output'])
